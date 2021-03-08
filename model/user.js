@@ -8,13 +8,15 @@ const userSchema = new mongoose.Schema({
     unique: true,
     minlength: 5,
     maxlength: 255,
+    sparse:true
   },
-  email: { type: String, required: true, unique: true },
-  password: { type: String },
+  email: { type: String, required: true, unique: true, sparse:true },
+  password: { type: String, sparse:true },
   role: String,
   token: String,
   tokenExpiration: Date,
-  facebookId: String
+  facebookId: String,
+  typeoflogin: {type: String, sparse:true}
 });
 
 
