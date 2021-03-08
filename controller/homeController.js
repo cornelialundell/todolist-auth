@@ -9,6 +9,8 @@ let alphabeticAz = ""
 let alphabeticZa = ""
 
 const homeRender = async (req, res) => {
+
+  let cookie = req.cookies.jwtToken
   let sorted = +req.query.sorted || 1;
   let page = +req.query.page || 1;
   const allTodos = await TodoTask.find({
@@ -21,7 +23,6 @@ const homeRender = async (req, res) => {
     .limit(todosToShow)
     .sort([[typeOfSort, sorted]])
     .exec(function (err, tasks) {
-
       res.render("home.ejs", {
         user: req.user.user,
         sorted,

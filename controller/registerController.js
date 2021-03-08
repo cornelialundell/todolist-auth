@@ -7,7 +7,6 @@ const registerRender = (req, res) => {
 };
 
 const registerSubmit = async (req, res) => {
-  console.log(req.body)
   const { name, email, password } = req.body;
 
   try {
@@ -17,6 +16,7 @@ const registerSubmit = async (req, res) => {
       name: name,
       email: email,
       password: hashedPassword,
+      typeoflogin: 'local'
     }).save();
     res.redirect("/login");
   } catch (err) {

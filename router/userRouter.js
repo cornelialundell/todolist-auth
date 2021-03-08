@@ -32,7 +32,7 @@ router.get("/reset", resetRender);
 
 router.post("/reset", resetSubmit);
 
-router.get("/reset:token", resetParams);
+router.get("/reset/:token", resetParams);
 
 router.post("/resetPasswordForm", resetFormSubmit);
 

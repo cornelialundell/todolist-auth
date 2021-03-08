@@ -22,7 +22,7 @@ router.get("/remove/:id", verifyUser, removeTodo);
 
 router.get("/edit/:id", verifyUser, editTodo);
 router.post("/edit/:id", verifyUser, editSubmit);
-router.get("/cancelEdit", verifyUser, editSubmit);
+router.get("/cancelEdit", verifyUser, cancelEdit);
 
 router.get("/checked/:id", verifyUser, checkTodo);
 

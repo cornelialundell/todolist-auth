@@ -1,6 +1,9 @@
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = process.env.CLIENT_ID
+const client = new OAuth2Client(CLIENT_ID);
 
 require("dotenv").config();
 
@@ -22,10 +25,11 @@ const loginSubmit = async (req, res) => {
 
   const jwtToken = await jwt.sign({ user: user }, process.env.SECRET_KEY);
 
+
   if (jwtToken) {
     const cookie = req.cookies.jwtToken;
     if (!cookie) {
-      res.cookie("jwtToken", jwtToken, { maxAge: 3600000, httpOnly: true });
+      res.cookie("jwtToken", jwtToken, { maxAge: 36000000, httpOnly: true });
     }
 
     return res.redirect("/");
@@ -36,28 +40,44 @@ const loginSubmit = async (req, res) => {
 
 const googleSubmit = async (req, res) => {
   const token = req.body.token;
-  console.log(token)
   const name = req.body.profileName
   const email = req.body.profileEmail
-  console.log(email)
+  
 
   const user = await User.findOne({ email });
+
 
 
   if(!user) {
 
   try {
-    console.log("hej")
     await new User({
       name: name,
       email: email,
-    }).save();
+      typeoflogin: 'google'
+    }).save()
+    
   } catch (err) {
     if (err) return res.render("register.ejs", { err: err });
   }
-  } console.log(user)
+  } 
 
-  res.redirect("/")
+
+
+  const jwtToken = await jwt.sign(JSON.stringify({ user: user }), process.env.SECRET_KEY)
+
+  if (jwtToken) {
+    const cookie = req.cookies.jwtToken;
+    if (!cookie) {
+      res.cookie("jwtToken", jwtToken, { maxAge: 3600000, httpOnly: true })
+    }
+   
+
+    return res.redirect("/")
+  }
+
+  return res.redirect("/login");
+
 }
 
 module.exports = {

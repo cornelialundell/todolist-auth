@@ -29,6 +29,7 @@ const resetSubmit = async (req, res) => {
   await user.save();
 
   //Skicka länk med token till användarens mejl
+  console.log(user.token)
   transport.sendMail({
     from: "feddynamiskweb@gmail.com",
     to: user.email,
@@ -40,16 +41,22 @@ const resetSubmit = async (req, res) => {
 };
 
 const resetParams = async (req, res) => {
+
   const token = req.params.token;
+  console.log(token + 'här är min token');
 
   try {
     const validUser = await User.findOne({
       token: token,
       tokenExpiration: { $gt: Date.now() },
     });
+    console.log(validUser.email);
 
     if (!validUser) return res.redirect("/register");
-    res.render("resetPasswordForm.ejs", { err: "" });
+    res.render("resetPasswordForm.ejs", {
+      err: "",
+      validUser: validUser.email,
+    });
   } catch (err) {
     res.render("resetEmail.ejs", { err: err });
   }
