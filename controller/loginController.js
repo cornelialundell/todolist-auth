@@ -55,7 +55,8 @@ const googleSubmit = async (req, res) => {
       name: name,
       email: email,
       typeoflogin: 'google'
-    }).save();
+    }).save()
+    
   } catch (err) {
     if (err) return res.render("register.ejs", { err: err });
   }
@@ -63,16 +64,16 @@ const googleSubmit = async (req, res) => {
 
 
 
-  const jwtToken = await jwt.sign(JSON.stringify({ user: user }), process.env.SECRET_KEY);
+  const jwtToken = await jwt.sign(JSON.stringify({ user: user }), process.env.SECRET_KEY)
 
   if (jwtToken) {
     const cookie = req.cookies.jwtToken;
     if (!cookie) {
-      res.cookie("jwtToken", jwtToken, { maxAge: 3600000, httpOnly: true });
+      res.cookie("jwtToken", jwtToken, { maxAge: 3600000, httpOnly: true })
     }
     console.log('din cookie är' + req.cookies.jwtToken)
 
-    return res.redirect("/");
+    return res.redirect("/")
   }
 
   return res.redirect("/login");

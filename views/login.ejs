@@ -48,6 +48,8 @@
         );
         xhr.onload = function () {
           console.log("Signed in as: " + xhr.responseText);
+          signOut();
+          location.assign("/")
         };
         xhr.send(JSON.stringify({token: id_token, profileName, profileEmail}));
       }

@@ -9,11 +9,11 @@ let alphabeticAz = ""
 let alphabeticZa = ""
 
 const homeRender = async (req, res) => {
-  console.log('nu försöker vi logga in')
-  console.log('här är fortf din token ' + req.cookies.jwtToken)
+
   let cookie = req.cookies.jwtToken
   let sorted = +req.query.sorted || 1;
   let page = +req.query.page || 1;
+  console.log(req.user.user)
   const allTodos = await TodoTask.find({
     userid: req.user.user._id,
   }).countDocuments();
