@@ -13,7 +13,6 @@ const homeRender = async (req, res) => {
   let cookie = req.cookies.jwtToken
   let sorted = +req.query.sorted || 1;
   let page = +req.query.page || 1;
-  console.log(req.user.user)
   const allTodos = await TodoTask.find({
     userid: req.user.user._id,
   }).countDocuments();
@@ -24,7 +23,6 @@ const homeRender = async (req, res) => {
     .limit(todosToShow)
     .sort([[typeOfSort, sorted]])
     .exec(function (err, tasks) {
-      console.log(req.user.user)
       res.render("home.ejs", {
         user: req.user.user,
         sorted,

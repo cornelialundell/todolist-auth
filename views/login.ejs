@@ -15,23 +15,23 @@
   <script src="https://kit.fontawesome.com/b22cc2033a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-inputs">
-  <form action="/login" method="post">
+<div class="login-container">
+  <form action="/login" method="post" class="login">
     <input type="email" name="email" id="" placeholder="example@domain.com" />
     <input type="password" name="password" id="" placeholder="Password" />
-    <button type="submit">Login</button>
+    <button type="submit" id="login-btn">Login</button>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
   
     <p>Don't have an account?</p>
     <a href="/register">Register</a>
     <a href="/reset">Forgot password?</a>
   </form>
-</div>
-</div>
+
 
 <!-- GOOGLE KNAPP -->
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="" onclick="signOut();">Sign out</a>
+
+
+  </div>
 
     <script>
       function onSignIn(googleUser) {
@@ -60,5 +60,6 @@
         });
       }
     </script>
+    
 </body>
 </html>
